@@ -1,4 +1,4 @@
-# CAN Care
+# CANCare
 A caregiving marketplace prototype that connects patients and caregivers
 based on needs, location, and price range.
 ## Technology
