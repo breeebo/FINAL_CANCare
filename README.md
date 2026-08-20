@@ -12,3 +12,7 @@ based on needs, location, and price range.
 Install dependencies:
 ```bash
 npm install
+docker compose up -d
+node setup.js
+node seed.js
+npm start
