@@ -1,3 +1,4 @@
+require('dotenv').config();
 
 const bcrypt = require('bcryptjs');
 const { query } = require('./db.js');
@@ -126,7 +127,7 @@ async function seedDatabase() {
   }
 }
 
-// Run the seeding function
+// Run seeding function
 seedDatabase().then(() => {
   console.log('Seed process finished.');
   process.exit(0);

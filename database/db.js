@@ -7,7 +7,7 @@ const pool = new Pool({
   ssl: process.env.DATABASE_URL.includes('localhost') ? false : { rejectUnauthorized: false }
 });
 
-// Simple query function
+// Query function
 async function query(text, params) {
   const client = await pool.connect();
   try {

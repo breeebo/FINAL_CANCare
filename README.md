@@ -14,5 +14,5 @@ Install dependencies:
 npm install
 docker compose up -d
 node setup.js
-node seed.js
+node database/seed.js
 npm start
