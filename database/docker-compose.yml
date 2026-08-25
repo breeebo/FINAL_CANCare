@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: breebo
-      POSTGRES_PASSWORD: Vickiluc123
+      POSTGRES_PASSWORD: 12345hiitsme
       POSTGRES_DB: cancare_db
     ports:
       - "5432:5432"

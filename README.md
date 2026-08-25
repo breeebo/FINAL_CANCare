@@ -50,7 +50,7 @@ The original version had no clear separation between frontend and backend logic,
 ```
 4. Start database container
 ```bash
-   docker-compose up -d
+   docker-compose -f database/docker-compose.yml up -d
 ```
 5. Apply schema
 ```bash

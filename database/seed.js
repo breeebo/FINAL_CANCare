@@ -65,7 +65,7 @@ async function seedDatabase() {
         phone: '555-678-9012',
         location: 'Toronto, ON',
         price_range: 30,
-        needs: ['Physical Therapy', 'Medical Care']
+        specialties: ['Physical Therapy', 'Medical Care']
       },
       {
         email: 'patient2@example.com',
@@ -74,7 +74,7 @@ async function seedDatabase() {
         phone: '555-789-0123',
         location: 'Vancouver, BC',
         price_range: 40,
-        needs: ['Meal Preparation', 'Companionship']
+        specialties: ['Meal Preparation', 'Companionship']
       },
       {
         email: 'patient3@example.com',
@@ -83,7 +83,7 @@ async function seedDatabase() {
         phone: '555-890-1234',
         location: 'Toronto, ON',
         price_range: 35,
-        needs: ['Personal Care', 'Transportation', 'Medical Care']
+        specialties: ['Personal Care', 'Transportation', 'Medical Care']
       },
       {
         email: 'patient4@example.com',
@@ -92,7 +92,7 @@ async function seedDatabase() {
         phone: '555-901-2345',
         location: 'Montreal, QC',
         price_range: 25,
-        needs: ['Companionship', 'Meal Preparation']
+        specialties: ['Companionship', 'Meal Preparation']
       },
       {
         email: 'patient5@example.com',
@@ -101,7 +101,7 @@ async function seedDatabase() {
         phone: '555-012-3456',
         location: 'Vancouver, BC',
         price_range: 45,
-        needs: ['Physical Therapy', 'Medical Care', 'Personal Care']
+        specialties: ['Physical Therapy', 'Medical Care', 'Personal Care']
       }
     ];
 
@@ -116,8 +116,8 @@ async function seedDatabase() {
     // Insert patients
     for (const patient of patients) {
       await query(
-        'INSERT INTO users (email, password, name, surname, phone, user_type, location, price_range, needs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) ON CONFLICT (email) DO NOTHING',
-        [patient.email, password, patient.name, patient.surname, patient.phone, 'patient', patient.location, patient.price_range, patient.needs]
+        'INSERT INTO users (email, password, name, surname, phone, user_type, location, price_range, specialties) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) ON CONFLICT (email) DO NOTHING',
+        [patient.email, password, patient.name, patient.surname, patient.phone, 'patient', patient.location, patient.price_range, patient.specialties]
       );
     }
 
