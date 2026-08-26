@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const { query } = require("../../database/db.js");
 
+const saltRounds = 10;
+
 exports.checkSession = (req, res) => {
     if (!req.session.userId) {
         return res.status(401).json({ loggedIn: false });
@@ -12,8 +14,7 @@ exports.checkSession = (req, res) => {
 exports.signup = async (req, res) => {
     
     try {
-        const user = req.body
-        const {email, password, name, surname, phone, user_type, location, price_range, specialties} = user
+        const {email, password, name, surname, phone, user_type, location, price_range, specialties} = req.body;
         const errors = [];
 
         if (!email) errors.push('Email is required');
@@ -34,7 +35,7 @@ exports.signup = async (req, res) => {
         }
 
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
 
 
         const newResult = await query(
@@ -44,10 +45,44 @@ exports.signup = async (req, res) => {
 
         const userId = newResult.rows[0].id;
         req.session.userId = userId;
-        res.json({ userId: req.session.userId });
-        
+        return res.json({ userId: req.session.userId });
+
     } catch (err) {
         console.error('Signup error:', err);
         res.status(500).json({ error: 'Something went wrong' });
     }
 };
+
+
+exports.login = async (req, res) => {
+        try {
+            const { email, password } = req.body;
+            const errors = [];
+
+            if (!email) errors.push('Email is required');
+            if (!password) errors.push('Password is required');
+
+            if (errors.length > 0) return res.status(400).json({ errors });
+
+
+            const result = await query('SELECT * FROM users WHERE email = $1', [email]);
+            if (result.rowCount === 0) {
+                return res.status(401).json({ errors: ['Invalid email or password'] });
+            }
+
+            const storedPassword = result.rows[0].password;
+            const isPasswordCorrect = await bcrypt.compare(password, storedPassword);
+            if (!isPasswordCorrect) {
+                return res.status(401).json({ errors: ['Invalid email or password'] });
+            }
+
+
+            const userId = result.rows[0].id;
+            req.session.userId = userId;
+            return res.json({ userId: req.session.userId });
+            
+        } catch (err) {
+            console.error('Login error:', err);
+            res.status(500).json({ error: 'Something went wrong' });
+        }
+    };
