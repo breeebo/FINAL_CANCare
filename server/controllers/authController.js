@@ -45,7 +45,7 @@ exports.signup = async (req, res) => {
 
         const userId = newResult.rows[0].id;
         req.session.userId = userId;
-        return res.json({ userId: req.session.userId });
+        return res.status(201).json({ userId: req.session.userId });
 
     } catch (err) {
         console.error('Signup error:', err);
@@ -85,4 +85,14 @@ exports.login = async (req, res) => {
             console.error('Login error:', err);
             res.status(500).json({ error: 'Something went wrong' });
         }
+    };
+
+exports.logout = (req, res) => {
+        req.session.destroy((err) => {
+            if (err) {
+                return res.status(500).json({ error: ['Logout unsuccessful'] });
+            } else {
+                return res.status(200).json({ loggedIn: false });
+            }
+        });
     };

@@ -7,16 +7,16 @@ based on needs, location, and price range.
 - PostgreSQL database running in Docker, with a defined schema (`schema.sql`)
 - Seed script for development data, using bcrypt for password hashing (`seed.js`)
 - Environment-based configuration (`.env`) for local vs. production settings
+- Express server with `/signup`, `/login`, `/logout`, and `/session` endpoints — session-based authentication, tested via curl/Postman
 
 ### What's in progress:
-- Express server with `/signup` and `/login` endpoints, tested via curl/Postman
+- Matching logic connecting patients to caregivers based on shared specialties, location, and price range
 - Migrating existing GUI (login/signup pages) to work with the new backend
 - Connecting the existing GUI to the new backend routes
-- Session-based authentication
 
 ### Planned:
 - Landing page introducing the platform to new visitors
-- User profile pages (view and edit caregiver/patient details, specialties/needs)
+- User profile pages (view and edit caregiver/patient details, specialties)
 - In-app messaging between caregivers and patients
 
 ### Why the refactor:
